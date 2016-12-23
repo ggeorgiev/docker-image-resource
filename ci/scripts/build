@@ -12,7 +12,7 @@ cp -r . $DIR
 cd $DIR
 go get cmd/...
 
-OUT=$BASEDIR/../../docker/assets
+OUT=$BASEDIR/../../../docker/assets
 
 mkdir -p $OUT
 
