@@ -10,7 +10,7 @@ cd $BASEDIR/../..
 cp -r . $DIR
 
 cd $DIR
-go get ./...
+go get cmd/...
 
 OUT=$BASEDIR/../../docker/assets
 
