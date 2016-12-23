@@ -99,6 +99,10 @@ version is the image's digest.
 * `build`: *Optional.* The path of a directory containing a `Dockerfile` to
   build.
 
+* `if_not_exists`: *Optional.* Default `false`. If it is set to `true` it
+  pulls the image from the repository avoiding rebuilding it. Useful for
+  static content images.
+  
 * `load`: *Optional.* The path of a directory containing an image that was
   fetched using this same resource with `save: true`.
 
