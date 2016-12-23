@@ -15,6 +15,7 @@ cd $DIR
 go get cmd/...
 
 OUT=$BASEDIR/../../../docker
+mkdir -p $BUILT_RESOURCE
 mkdir -p $OUT/assets
 mkdir -p $OUT/built-resource
 
