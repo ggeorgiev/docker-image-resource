@@ -17,7 +17,6 @@ go get cmd/...
 OUT=$BASEDIR/../../../docker
 mkdir -p $BUILT_RESOURCE
 mkdir -p $OUT/assets
-mkdir -p $OUT/built-resource
 
 cp Dockerfile $OUT
 cp assets/* $OUT/assets
