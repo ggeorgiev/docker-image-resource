@@ -13,7 +13,7 @@ cd $DIR
 go get cmd/...
 
 OUT=$BASEDIR/../../../docker
-mkdir -p $OUT
+mkdir -p $OUT/assets
 
 cp Dockerfile $OUT
 cp assets/* $OUT/assets
