@@ -1,39 +1,26 @@
-#!/usr/bin/env bash
-pushd `dirname $0` > /dev/null; BASEDIR=`pwd`; popd > /dev/null
+#!/bin/bash
 
-set -ex
+set -e -x
 
 BUILT_RESOURCE=$PWD/built-resource
 
-DIR=$GOPATH/src/github.com/concourse/docker-image-resource
-mkdir -p $DIR
+export GOPATH=$PWD/gopath
+export PATH=$PWD/gopath/bin:$PATH
 
-cd $BASEDIR/../..
-cp -r . $DIR
-
-cd $DIR
-go get cmd/...
-
-OUT=$BASEDIR/../../../docker
-mkdir -p $BUILT_RESOURCE
-mkdir -p $OUT/assets
-
-cp Dockerfile $OUT
-cp assets/* $OUT/assets
+cd $(dirname $0)/../..
 
 go install github.com/concourse/docker-image-resource/vendor/github.com/onsi/ginkgo/ginkgo
 
 CGO_ENABLED=1 ginkgo -race -r -p
 
-go build -o $OUT/assets/check ./cmd/check/
-go build -o $OUT/print-metadata ./cmd/print-metadata/
-go build -o $OUT/buildcache github.com/concourse/docker-image-resource/vendor/github.com/tonistiigi/buildcache/cmd/buildcache
-go build -o $OUT/ecr-login github.com/concourse/docker-image-resource/vendor/github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cmd
+go build -o ./assets/check ./cmd/check/
+go build -o ./assets/print-metadata ./cmd/print-metadata/
 
-pushd $OUT
 curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.12.1.tgz
 tar zxf docker-1.12.1.tgz
-popd
+go build -o ./buildcache github.com/concourse/docker-image-resource/vendor/github.com/tonistiigi/buildcache/cmd/buildcache
+
+
+go build -o ./ecr-login github.com/concourse/docker-image-resource/vendor/github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cmd
 
 cp -a ./* ${BUILT_RESOURCE}/
-
