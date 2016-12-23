@@ -18,6 +18,7 @@ mkdir -p $OUT
 
 cp Dockerfile $OUT/..
 cp assets/* $OUT
+cp -r docker $OUT/../
 
 BUILT_RESOURCE=$PWD/built-resource
 
