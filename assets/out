@@ -3,6 +3,9 @@
 
 set -e -u
 
+echo "this is my version of the script"
+
+
 exec 3>&1 # make stdout available as fd 3 for the result
 exec 1>&2 # redirect all output to stderr for logging
 
@@ -96,11 +99,6 @@ elif [ -n "$build" ]; then
     echo "It doesn't appear that given Dockerfile: \"$dockerfile\" is a file"
     exit 1
   fi
-  
-  if [ "$if_not_exists" = "true" ]; then
-    echo "Already exists"
-    exit 0
-  fi
 
   ECR_REGISTRY_PATTERN='/[a-zA-Z0-9][a-zA-Z0-9_-]*\.dkr\.ecr\.[a-zA-Z0-9][a-zA-Z0-9_-]*\.amazonaws\.com(\.cn)?/'
   ecr_host=$(grep '^\s*FROM' ${dockerfile} | \
@@ -135,6 +133,11 @@ elif [ -n "$build" ]; then
 
   if [ -n "$build_args_file" ]; then
     expanded_build_args=${expanded_build_args}" "$(jq -r 'with_entries(.key |= "--build-arg " + . )|with_entries(.key = .key + "=" +.value)|keys|join(" ")' <$build_args_file)
+  fi
+    
+  if [ "$if_not_exists" = "true" ]; then
+    echo "Already exists"
+    exit 0
   fi
 
   docker build -t "${repository}:${tag_name}" $expanded_build_args -f "$dockerfile" "$build"
