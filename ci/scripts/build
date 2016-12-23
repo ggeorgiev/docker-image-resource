@@ -3,6 +3,8 @@ pushd `dirname $0` > /dev/null; BASEDIR=`pwd`; popd > /dev/null
 
 set -ex
 
+BUILT_RESOURCE=$PWD/built-resource
+
 DIR=$GOPATH/src/github.com/concourse/docker-image-resource
 mkdir -p $DIR
 
@@ -33,4 +35,5 @@ curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.12.1.tgz
 tar zxf docker-1.12.1.tgz
 popd
 
-cp -a ./* $OUT/built-resource
+cp -a ./* ${BUILT_RESOURCE}/
+
