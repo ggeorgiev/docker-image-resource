@@ -133,10 +133,10 @@ elif [ -n "$build" ]; then
   fi
   
   if [ "$if_not_exists" = "true" ]; then
-    if ! docker pull "${repository}:${tag_name}"; then
-      echo
+    if docker pull "${repository}:${tag_name}"; then
       already_built=true
     fi
+    echo
   fi
   
   if ! "$already_built" = "true"; then
