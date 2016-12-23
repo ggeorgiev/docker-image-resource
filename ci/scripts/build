@@ -25,6 +25,7 @@ go install github.com/concourse/docker-image-resource/vendor/github.com/onsi/gin
 CGO_ENABLED=1 ginkgo -race -r -p
 
 go build -o $OUT/assets/check ./cmd/check/
+go build -o $OUT/print-metadata ./cmd/print-metadata/
 go build -o $OUT/buildcache github.com/concourse/docker-image-resource/vendor/github.com/tonistiigi/buildcache/cmd/buildcache
 go build -o $OUT/ecr-login github.com/concourse/docker-image-resource/vendor/github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cmd
 
