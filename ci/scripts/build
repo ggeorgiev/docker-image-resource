@@ -25,8 +25,9 @@ go install github.com/concourse/docker-image-resource/vendor/github.com/onsi/gin
 CGO_ENABLED=1 ginkgo -race -r -p
 
 go build -o $OUT/assets/check ./cmd/check/
-
-curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.12.1.tgz
-tar zxf docker-1.12.1.tgz
 go build -o $OUT/buildcache github.com/concourse/docker-image-resource/vendor/github.com/tonistiigi/buildcache/cmd/buildcache
 
+pushd $OUT
+curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.12.1.tgz
+tar zxf docker-1.12.1.tgz
+popd
