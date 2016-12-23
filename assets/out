@@ -135,11 +135,11 @@ elif [ -n "$build" ]; then
   if [ "$if_not_exists" = "true" ]; then
     if ! docker pull "${repository}:${tag_name}"; then
       echo
-      already_build=true
+      already_built=true
     fi
   fi
   
-  if ! "$already_build" == "true"; then
+  if ! "$already_built" = "true"; then
     docker build -t "${repository}:${tag_name}" $expanded_build_args -f "$dockerfile" "$build"
   fi
   
